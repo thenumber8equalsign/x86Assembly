@@ -11,3 +11,4 @@ strlen:
         inc     rax
         jmp     .L3
     .done:
+    ret
