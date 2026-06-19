@@ -11,20 +11,24 @@ stoul:
     xor     ecx, ecx
     xor     eax, eax
 .L3:
-    movzx   rdx, byte [rdi+rcx]
-    inc     rcx
-    test    dl, dl
+    movzx   r9, byte [rdi+rcx]
+
+    test    r9b, r9b
     jz      .done
-    cmp     dl, "9"
+
+    mul     rsi ; multiply by the base
+    inc     rcx
+
+    ; if greather than '9', its a letter
+    cmp     r9b, "9"
     jg      .letter
-    sub     dl, "0"
-    add     rax, rdx
-    mul     rsi
+    ; numerical digit path
+    sub     r9b, "0"
+    add     rax, r9
     jmp     .L3
 .letter:
-    sub     dl, 87
-    add     rax, rdx
-    mul     rsi
+    sub     r9b, 87 ; subtract 97, then add 10
+    add     rax, r9
     jmp     .L3
 .done:
     ret
