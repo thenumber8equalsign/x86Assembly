@@ -2,6 +2,8 @@
 I Learned the best language ever, x86 Assembly, this is my first program.
 <br>
 Also, this is completely libc free. ZERO dependencies.
+<br>
+Except for the tests, which were written in C
 
 ## Documentation so I dont forget
 The ABI can be found at https://refspecs.linuxfoundation.org
