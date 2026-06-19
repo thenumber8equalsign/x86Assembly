@@ -5,7 +5,7 @@ section .text
     global uldigits
     global ldigits
 ; uint64_t uldigits(uint64_t num, uint64_t base)
-; note this DOES preserve rdi
+; note this DOES preserve rdi and rsi
 uldigits:
     push    rbp
     mov     rbp, rsp
@@ -30,6 +30,7 @@ uldigits:
     leave
     ret
 ; uint64_t ldigits(int64_t num, int64_t base)
+; note this DOES preserve rdi and rsi
 ldigits:
     push    rbp
     mov     rbp, rsp
