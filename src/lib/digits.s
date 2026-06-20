@@ -22,8 +22,7 @@ uldigits:
     div     rsi
     inc     rdi
     test    rax, rax
-    jz      .uldigits_done
-    jmp     .L3
+    jnz     .L3
 .uldigits_done:
     mov     rax, rdi
     mov     rdi, qword [rbp-8]
