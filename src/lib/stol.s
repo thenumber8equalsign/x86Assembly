@@ -5,7 +5,8 @@ section .text
     global stol
     global stoul
 ; uint64_t stoul(const char* str, uint64_t base)
-; undefined behavior for base > 16 and for illegal characters (-ve sign is illegal in stoul)
+; this does not mess with rsi
+; undefined behavior for base > 40 and for illegal characters (-ve sign is illegal in stoul)
 ; and for NaNs, like "\0", "-\0", etc
 stoul:
     xor     ecx, ecx
@@ -33,4 +34,15 @@ stoul:
 .done:
     ret
 
+; uint64_t stol(const char* str, uint64_t base)
 stol:
+    cmp     byte [rdi], "-" ; check if its actually negative
+    je      .stol_negative
+    ; positive path
+    call    stoul
+    ret
+.stol_negative:
+    inc     rdi
+    call    stoul
+    neg     rax
+    ret
