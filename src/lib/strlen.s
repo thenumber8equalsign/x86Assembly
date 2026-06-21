@@ -3,6 +3,8 @@ DEFAULT REL
 
 section .text
     global strlen
+; uint64_t strlen(const char* str)
+; note this preserves everything except for rax
 strlen:
     xor     eax, eax
 .L3:

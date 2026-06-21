@@ -9,8 +9,11 @@ section .text
     global println
     global printul
     global printl
+    global prints
+    global printsn
     extern ultos
     extern ltos
+    extern strlen
 ; void println();
 println:
     push    rbp
@@ -81,4 +84,24 @@ failure:
     lea     rsi, [er]
     mov     rdx, er_len
     syscall
+    ret
+
+; void prints(const char* str)
+; note: preserves rdi
+prints:
+    push    rdi
+    call    strlen ; remember this preserves everything except for rax
+
+    mov     rdx, rax
+    mov     rsi, rdi
+    mov     rdi, 1
+    mov     rax, 1
+    syscall
+
+    pop     rdi
+    ret
+; void printsn(const char*)
+printsn:
+    call    prints
+    call    println
     ret

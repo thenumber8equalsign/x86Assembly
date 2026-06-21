@@ -1,9 +1,12 @@
+#include <errno.h>
 #include <stdio.h>
 #include <stdint.h>
 
 extern void println();
 extern void printul(uint64_t, uint64_t);
 extern void printl(int64_t, uint64_t);
+extern void prints(const char*);
+extern void printsn(const char*);
 
 int main() {
     printul(64, 10);
@@ -39,5 +42,12 @@ int main() {
     println();
     printl(10, 11);
     println();
+
+    puts("prints");
+    prints("Hello, World!");
+    prints("Nuh uh!");
+    prints("maybe");
+    printsn("with a new line!");
+    printsn("Hello with a new line!");
     return 0;
 }
