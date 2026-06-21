@@ -19,7 +19,7 @@ _start:
     mov     rdi, qword [rsp] ; argc
 
     cmp     rdi, 2
-    jne     .noargs
+    jb      .noargs
 
     mov     rdi, qword [rsp+16] ; argv[1]
 
