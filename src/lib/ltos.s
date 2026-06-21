@@ -9,6 +9,7 @@ section .text
     global ultos
     extern uldigits
 ; undefined behavior for base > 16
+; this also returns strlen(str) in rdx (assuming it succeeded)
 ; char* ultos(uint64_t num, uint64_t base)
 ultos:
     ; find the number of digits in the number
@@ -50,6 +51,9 @@ ultos:
     test    rax, rax
     jnz     .L3
 .ultos_done:
+    ; r8 stores the index of the null terminator, which just so happens to be strlen()
+    mov     rdx, r8
+    dec     rdx
     mov     rax, rcx
     ret
 .ultos_map_fail:
@@ -66,6 +70,7 @@ ltos:
     neg     rdi ; negate the number first
     call    uldigits ; this preserves rdi and rsi
     add     rax, 2 ; add 1 for the null terminator, add another 1 for the -ve sign
+
     push    rdi
     push    rsi
     push    rax
@@ -103,6 +108,9 @@ ltos:
     test    rax, rax
     jnz     .L4
 .ltos_done:
+    ; r8 stores the index of the null terminator, which just so happens to be strlen()
+    mov     rdx, r8
+    dec     rdx
     mov     rax, rcx
     ret
 .ltos_map_fail:
