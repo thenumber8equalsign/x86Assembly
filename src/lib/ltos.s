@@ -8,7 +8,7 @@ section .text
     global ltos
     global ultos
     extern uldigits
-; undefined behavior for base > 16
+; undefined behavior for base > 16 || base < 2
 ; this also returns strlen(str) in rdx (assuming it succeeded)
 ; char* ultos(uint64_t num, uint64_t base)
 ultos:
@@ -53,7 +53,6 @@ ultos:
 .ultos_done:
     ; r8 stores the index of the null terminator, which just so happens to be strlen()
     mov     rdx, r8
-    dec     rdx
     mov     rax, rcx
     ret
 .ultos_map_fail:
@@ -110,7 +109,6 @@ ltos:
 .ltos_done:
     ; r8 stores the index of the null terminator, which just so happens to be strlen()
     mov     rdx, r8
-    dec     rdx
     mov     rax, rcx
     ret
 .ltos_map_fail:
